@@ -1,6 +1,7 @@
 <?php
 
 include("Constants.php");
+
 $user  = Constants::USER;
 $password = Constants::PASSWORD;
 $db = "cmsc436s23_424class";
@@ -9,21 +10,24 @@ $server = "localhost";
 // connect to the database
 $mysqli = new mysqli($server, $user, $password, $db);
 
+
 // check for connection errors
 if ($mysqli->connect_error)
    echo "Error connecting<br/>"; 
 
-$bodyInput = $_POST['body'];
-$emailInput = $_POST['email'];
-$parentIDInput = $_POST['parentId'];
 
-$body = validateInputString($mysqli, $bodyInput);
-$email = validateInputString($mysqli, $emailInput);
-$parentId = filter_var($parentIDInput, FILTER_VALIDATE_INT);
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    include("insertReply.html");
+    exit;
+}
 
 function validateInputString($mysqli, $s) {
     return $mysqli->real_escape_string($s);
 }
+
+$body = validateInputString($mysqli, $_POST['body']);
+$email = validateInputString($mysqli, $_POST['email']);
+$parentId = filter_var($_POST['parentId'], FILTER_VALIDATE_INT);
 
 if (!$body || !$email || !$parentId) {
     echo "Invalid input.";
@@ -57,5 +61,7 @@ if ($insertSqlStatement->execute()) {
 
 $insertSqlStatement->close();
 $mysqli->close();
+
+include("insertReply.html");
 
 ?>
