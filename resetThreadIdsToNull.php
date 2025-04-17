@@ -37,6 +37,7 @@ $result = $mysqli->query("SELECT * FROM fli1234_POST");
 </head>
 <body>
 
+<h1>Feileen Li and Dinelka Jagoda</h1>
 <h2>POST Table with Null Values</h2>
 <table>
     <tr>

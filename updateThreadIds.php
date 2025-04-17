@@ -27,6 +27,8 @@ $updates = [
     "UPDATE fli1234_POST SET threadId = 6 WHERE id = 11"
 ];
 
+echo "Feileen Li and Dinelka Jagoda<br/>";
+
 foreach($updates as $update) {
 	if($mysqli->query($update)) {
 		echo "success: $update<br/>";
